@@ -4,23 +4,23 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Current Phase
 
-- Design System (`context/feature-specs/01-design-system.md`)
+- Editor Chrome (`context/feature-specs/02-editor-chrome.md`)
 
 ## Current Goal
 
-- Install and configure shadcn/ui, add the Button/Card/Dialog/Input/Tabs/Textarea/ScrollArea primitives, install lucide-react, and wire the dark theme from `context/ui-context.md` into `globals.css`.
+- Build the reusable editor shell: a fixed-height top navbar with a sidebar toggle, and a floating project sidebar with My Projects / Shared tabs and a New Project action. Confirm the existing shadcn Dialog primitive already satisfies the title/description/footer pattern needed for future dialogs.
 
 ## Completed
 
-- None yet.
+- `01-design-system.md` — shadcn/ui installed (`base-nova` style), `components/ui/{button,card,dialog,input,tabs,textarea,scroll-area}.tsx` generated, `lucide-react` installed, `lib/utils.ts` created with `cn()`, and `globals.css` rewired to the dark palette from `ui-context.md` (no light mode).
 
 ## In Progress
 
-- `01-design-system.md` — shadcn/ui installed (`base-nova` style), `components/ui/{button,card,dialog,input,tabs,textarea,scroll-area}.tsx` generated, `lucide-react` installed, `lib/utils.ts` created with `cn()`, and `globals.css` rewired to the dark palette from `ui-context.md` (no light mode).
+- `02-editor-chrome.md` — `components/editor/editor-navbar.tsx` (fixed `h-14` top navbar, left/center/right sections, `PanelLeftOpen`/`PanelLeftClose` toggle driven by an `isSidebarOpen` prop, right section intentionally empty) and `components/editor/project-sidebar.tsx` (absolutely positioned floating overlay, slides in via `translate-x` transition off an `isOpen` prop so it never pushes canvas content, `Projects` header with close button, shadcn `Tabs` for My Projects / Shared with empty placeholder states, full-width `New Project` button with `Plus` icon). Dialog pattern requirement is satisfied by the existing `components/ui/dialog.tsx` from phase 1 — it already sources colors from `globals.css` tokens (`popover`, `popover-foreground`, `muted`) and supports `DialogTitle` / `DialogDescription` / `DialogFooter`; no new dialog component was built per the spec ("do not build actual dialogs yet"). Both new components pass `tsc --noEmit` and `eslint` with zero errors/warnings.
 
 ## Next Up
 
-- Add the next planned feature unit here.
+- Compose `EditorNavbar` + `ProjectSidebar` into the actual editor workspace layout/page once that unit is scoped.
 
 ## Open Questions
 
@@ -34,4 +34,5 @@ Update this file whenever the current phase, active feature, or implementation s
 
 ## Session Notes
 
-- `context/project-overview.md` and `context/ai-workflow-rules.md` both contain a large stray block of unrelated "Install Liveblocks" prompt text pasted in near the top of the file — left untouched since removing it wasn't part of this task; flagged to the user, worth cleaning up in a dedicated pass.
+- `context/project-overview.md` previously contained a large stray block of unrelated "Install Liveblocks" prompt text pasted in near the top of the file; it has since been cleaned up (no longer present as of this session).
+- `context/ai-workflow-rules.md` still contains that same stray "Install Liveblocks" block — left untouched since removing it isn't part of this task; flagged to the user, worth cleaning up in a dedicated pass.
